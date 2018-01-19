@@ -1,0 +1,22 @@
+#/usr/bin/env bash
+
+action=$1
+
+function usage {
+	echo "  $(basename $0)"
+	echo "    pre-filters to add"
+	echo ""
+	exit
+}
+
+[ "$action" = "usage" ] && usage
+
+TODAY=$(date +%Y-%m-%d)
+TASK=$(echo $* | sed "s/$1 //")
+TASK=$(echo $TASK | sed "s/due:today/due:$(date +%Y-%m-%d)/")
+echo $TASK >> $TODO_FILE
+if [ $TODOTXT_VERBOSE -gt 0 ]; then
+    TASKNUM=$(sed -n '$ =' "$TODO_FILE")
+    echo "$TASKNUM $TASK"
+    echo "$(getPrefix "$file"): $TASKNUM added."
+fi
