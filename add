@@ -11,7 +11,6 @@ function usage {
 
 [ "$action" = "usage" ] && usage
 
-TODAY=$(date +%Y-%m-%d)
 TASK=$(echo $* | sed "s/$1 //")
 TASK=$(echo $TASK | sed "s/due:today/due:$(date +%Y-%m-%d)/")
 echo $TASK >> $TODO_FILE
